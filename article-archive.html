@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SportGear - Arsip Artikel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-in-up { animation: slideInUp 0.6s ease-out forwards; }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-left { animation: slideInLeft 0.5s ease-out forwards; }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+
+        /* For the dropdowns in the header */
+        .group:hover .group-hover\:block {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .group .absolute.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease-out;
+            pointer-events: none; /* Prevent interaction when hidden */
+        }
+        .group:hover .absolute.hidden {
+            pointer-events: auto; /* Allow interaction when visible */
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <header class="bg-black text-white py-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-orange-500">
+                    <a href="index.html" class="flex items-center transition-colors duration-200">
+                        <span class="text-orange-500">SPORT</span><span class="text-white">GEAR</span>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                        New
+                        <span class="bg-green-500 text-white text-xs px-1 rounded ml-1 animate-pulse">NEW</span>
+                    </a>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Olahraga
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 hidden">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Basketball</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Running</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Football</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Training</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Badminton</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Brands
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 hidden">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Nike</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Adidas</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Puma</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Under Armour</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Asics</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="product-catalog.html" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Kategori
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 hidden">
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Sepatu</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Pakaian</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Aksesoris</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Peralatan</a>
+                        </div>
+                    </div>
+                    <a href="#" class="bg-red-600 px-4 py-1 rounded-full hover:bg-red-700 font-medium transition-colors duration-200">Sale</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Cari produk..." class="py-1 pl-8 pr-4 rounded-full text-black w-64 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <a href="#" class="hover:text-gray-300 relative transition-colors duration-200">
+                        <i class="fas fa-heart"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="cart.html" class="hover:text-gray-300 relative transition-colors duration-200">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="#" class="hover:text-gray-300 hidden md:block transition-colors duration-200">Login | Register</a>
+                    <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-black px-4 pt-2 pb-4 space-y-2 hidden">
+            <input type="text" placeholder="Cari produk..." class="w-full py-2 px-4 rounded-full text-black focus:outline-none focus:ring-2 focus:ring-orange-500">
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">New <span class="bg-green-500 text-white text-xs px-1 rounded ml-1 animate-pulse">NEW</span></a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Olahraga</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Brands</a>
+            <a href="product-catalog.html" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Kategori</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Sale</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Login | Register</a>
+        </div>
+    </header>
+
+    <div class="bg-white p-4 shadow-sm animate-fade-in">
+        <div class="container mx-auto px-4">
+            <div class="text-sm">
+                <a href="index.html" class="text-gray-500 hover:text-black transition-colors duration-200">Home</a>
+                <i class="fas fa-chevron-right text-gray-400 text-xs mx-2"></i>
+                <span class="font-semibold text-gray-800">Artikel</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto py-8 px-4">
+        <h1 class="text-3xl md:text-4xl font-bold mb-6 animate-slide-in-up">Artikel Olahraga Terbaru</h1>
+
+        <div class="bg-white p-4 mb-6 rounded-lg shadow animate-fade-in">
+            <div class="flex flex-wrap gap-2 md:gap-4">
+                <button class="bg-black text-white px-4 py-2 rounded-full hover:bg-gray-800 transition-colors duration-200 text-sm md:text-base">Semua</button>
+                <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full transition-colors duration-200 text-sm md:text-base">
+                    Basketball
+                </button>
+                <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full transition-colors duration-200 text-sm md:text-base">
+                    Running
+                </button>
+                <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full transition-colors duration-200 text-sm md:text-base">
+                    Football
+                </button>
+                <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full transition-colors duration-200 text-sm md:text-base">
+                    Fitness
+                </button>
+                <button class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full transition-colors duration-200 text-sm md:text-base">
+                    Lifestyle
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8 transform transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in">
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-2/3">
+                    <img
+                        src="https://assets.skor.id/Skor_id_ec7786a933.jpeg"
+                        alt="Featured Article"
+                        class="w-full h-64 md:h-80 lg:h-96 object-cover"
+                    />
+                </div>
+                <div class="md:w-1/3 p-6 flex flex-col justify-center">
+                    <div class="text-gray-500 text-sm mb-2">12 Mei 2025 | Basketball</div>
+                    <h2 class="text-xl md:text-2xl font-bold mb-4 leading-tight">
+                        Sepatu Basket Terbaru dari Nike yang Akan Rilis Bulan Ini
+                    </h2>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Nike kembali menghadirkan inovasi terbaru dalam dunia sepatu
+                        basket dengan teknologi yang lebih responsif dan desain yang lebih
+                        agresif. Para penggemar basket pasti tidak sabar menantikan koleksi terbaru ini...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="inline-block bg-red-600 text-white px-5 py-2 rounded-full hover:bg-red-700 transition-colors duration-200 transform hover:scale-105 font-medium text-sm"
+                    >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i></a
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://asset.kompas.com/crops/Pa9TaNHfQuLuxhrmfkSsJUmLxpM=/112x93:832x573/1200x800/data/photo/2024/02/13/65cb1705bb1c3.jpg"
+                        alt="Article 1"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">10 Mei 2025 | Running</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        Tips Memilih Sepatu Lari yang Tepat untuk Pemula
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Bagi pemula, memilih sepatu lari yang tepat bisa menjadi tantangan
+                        tersendiri. Dengan banyaknya pilihan di pasaran, penting untuk mengetahui
+                        faktor-faktor kunci yang perlu dipertimbangkan...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://cdn1-production-images-kly.akamaized.net/i46xPU4BijqgqJm9EN4eyTHMo-E=/1200x900/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/5013906/original/004561100_1732076800-tips-memilih-sepatu-futsal.jpg"
+                        alt="Article 2"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">8 Mei 2025 | Football</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        Perbandingan Sepatu Futsal Terbaik untuk Lapangan Indoor
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Sepatu futsal untuk lapangan indoor memiliki karakteristik khusus
+                        yang memengaruhi performa. Kami membandingkan beberapa model terbaik
+                        dari berbagai brand...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://news.ncrsport.com/wp-content/uploads/2025/05/image-7.png"
+                        alt="Article 3"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">5 Mei 2025 | Basketball</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        Lamelo Ball Dan Puma Siapkan MB.04 Lo "Ice White" Buat Musim Panas
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Lamelo Ball kembali berkolaborasi dengan Puma untuk menghadirkan
+                        sepatu basket edisi terbatas yang dirancang khusus untuk musim
+                        panas, dengan desain "Ice White" yang menyegarkan...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ-hX8wRVcwOHX8YZwlLH7VJlds2aTPWCjPw&s"
+                        alt="Article 4"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">3 Mei 2025 | Fitness</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        5 Aksesori Fitness yang Wajib Dimiliki untuk Latihan di Rumah
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Latihan fitness di rumah bisa menjadi lebih efektif dengan
+                        aksesori yang tepat. Berikut 5 aksesori yang wajib dimiliki untuk
+                        hasil maksimal tanpa harus ke gym...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://assets-a1.kompasiana.com/items/album/2024/12/29/tren-sepatu-sneakers-6771482dc925c4367e11e012.jpg"
+                        alt="Article 5"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">1 Mei 2025 | Lifestyle</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        Tren Sneakers 2025: Apa yang Akan Populer Tahun Ini?
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Dunia sneakers terus berkembang dengan tren baru setiap tahunnya.
+                        Kami merangkum prediksi tren sneakers yang akan populer di tahun
+                        2025, mulai dari gaya retro hingga teknologi inovatif...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg animate-slide-in-up">
+                <a href="article-detail.html">
+                    <img
+                        src="https://jadwallari.id/wp-content/uploads/2024/10/Jakarta-City-Run-2025.jpg"
+                        alt="Article 6"
+                        class="w-full h-48 object-cover"
+                    />
+                </a>
+                <div class="p-4">
+                    <div class="text-gray-500 text-xs mb-2">28 April 2025 | Running</div>
+                    <h3 class="text-lg font-bold mb-2 leading-snug">
+                        Persiapan Menghadapi Marathon Jakarta 2025
+                    </h3>
+                    <p class="text-gray-700 text-sm mb-4 line-clamp-3">
+                        Marathon Jakarta 2025 akan segera digelar. Berikut adalah tips
+                        persiapan dan perlengkapan yang dibutuhkan untuk menghadapi event
+                        tersebut agar Anda bisa finis dengan baik...
+                    </p>
+                    <a
+                        href="article-detail.html"
+                        class="text-red-600 hover:text-red-800 font-semibold transition-colors duration-200 text-sm"
+                        >Baca Selengkapnya <i class="fas fa-arrow-right ml-1"></i
+                    ></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center mt-8 animate-fade-in">
+            <div class="flex space-x-2">
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >«</a
+                >
+                <a href="#" class="bg-black text-white px-4 py-2 rounded transition-colors duration-200 text-sm md:text-base">1</a>
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >2</a
+                >
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >3</a
+                >
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >4</a
+                >
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >5</a
+                >
+                <a href="#" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition-colors duration-200 text-sm md:text-base"
+                    >»</a
+                >
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-black text-white pt-12 pb-6 mt-12">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+            <div>
+                <div class="text-2xl font-bold text-orange-500 mb-4">
+                    <a href="index.html" class="flex items-center">
+                        <span class="text-orange-500">SPORT</span><span class="text-white">GEAR</span>
+                    </a>
+                </div>
+                <p class="text-gray-400 mb-4 text-sm">Toko perlengkapan olahraga terlengkap dengan produk original dan bergaransi resmi.</p>
+                <div class="flex space-x-4 text-lg">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="font-bold text-lg mb-4">BANTUAN</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Cara Belanja</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pembayaran</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pengiriman</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pengembalian</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Syarat dan Ketentuan</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="font-bold text-lg mb-4">KATEGORI</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Basketball</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Running</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Football</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Training</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Lifestyle</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Badminton</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="font-bold text-lg mb-4">HUBUNGI KAMI</h3>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                        <span>Jl. Sportgear No. 123, Jakarta Selatan, DKI Jakarta, Indonesia</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                        <span>+62 21 1234 5678</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-envelope mt-1 mr-3"></i>
+                        <span>info@sportgear.id</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-clock mt-1 mr-3"></i>
+                        <span>Senin - Jumat: 09.00 - 21.00<br>Sabtu - Minggu: 10.00 - 22.00</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <hr class="border-gray-800 my-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                &copy; 2025 SportGear. All Rights Reserved.
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="Mastercard" class="h-6 sm:h-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" class="h-6 sm:h-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay.svg/1200px-RuPay.svg.png" alt="RuPay" class="h-6 sm:h-8">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" alt="PayPal" class="h-6 sm:h-8">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle (Header)
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportGear - Toko Perlengkapan Olahraga</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .hero-slider {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .product-card:hover .product-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-actions {
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px); /* Initial state for animation */
+        }
+        
+        .category-card:hover .category-overlay {
+            opacity: 0.7;
+        }
+        
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .flash-sale-text {
+            animation: flash 1.5s infinite;
+        }
+        
+        @keyframes flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: white;
+        }
+        
+        .slider-arrows {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        
+        .arrow {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .product-slide, .category-slide, .news-slide {
+            transition: transform 0.5s ease;
+            scroll-behavior: smooth; /* Smooth scrolling for product slider */
+        }
+
+        /* Responsive adjustments for product slider arrows */
+        @media (max-width: 767px) {
+            .slider-container .slider-arrow-btn {
+                display: none; /* Hide arrows on small screens */
+            }
+            .product-slide, .category-slide, .news-slide {
+                flex-wrap: nowrap; /* Prevent wrapping on small screens for horizontal scroll */
+            }
+        }
+
+        /* Custom Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-zoom-in { animation: zoomIn 0.6s ease-out forwards; }
+
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: var(--fill-percentage); }
+        }
+        .animate-progress-fill { animation: progressFill 1.5s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="bg-black text-white text-xs py-1">
+        <div class="container mx-auto text-center px-4">
+            <p>Free shipping untuk pembelian di atas Rp 1.000.000 | Cicilan 0% hingga 12 bulan</p>
+        </div>
+    </div>
+
+    <header class="bg-black text-white py-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-orange-500">
+                    <a href="index.html" class="flex items-center">
+                        <span class="text-orange-500">SPORT</span><span class="text-white">GEAR</span>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                        New
+                        <span class="bg-green-500 text-white text-xs px-1 rounded ml-1 animate-pulse">NEW</span>
+                    </a>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Olahraga
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out translate-y-2 pointer-events-none group-hover:pointer-events-auto">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Basketball</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Running</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Football</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Training</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Badminton</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Brands
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out translate-y-2 pointer-events-none group-hover:pointer-events-auto">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Nike</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Adidas</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Puma</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Under Armour</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Asics</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="product-catalog.html" class="hover:text-gray-300 flex items-center transition-colors duration-200">
+                            Kategori
+                            <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200 group-hover:rotate-180"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-20 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out translate-y-2 pointer-events-none group-hover:pointer-events-auto">
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Sepatu</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Pakaian</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Aksesoris</a>
+                            <a href="product-catalog.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition-colors duration-200">Peralatan</a>
+                        </div>
+                    </div>
+                    <a href="#" class="bg-red-600 px-4 py-1 rounded-full hover:bg-red-700 font-medium transition-colors duration-200">Sale</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="relative hidden md:block">
+                        <input type="text" placeholder="Cari produk..." class="py-1 pl-8 pr-4 rounded-full text-black w-64 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <a href="#" class="hover:text-gray-300 relative transition-colors duration-200">
+                        <i class="fas fa-heart"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="cart.html" class="hover:text-gray-300 relative transition-colors duration-200">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="#" class="hover:text-gray-300 hidden md:block transition-colors duration-200">Login | Register</a>
+                    <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden bg-black px-4 pt-2 pb-4 space-y-2 hidden">
+            <input type="text" placeholder="Cari produk..." class="w-full py-2 px-4 rounded-full text-black focus:outline-none focus:ring-2 focus:ring-orange-500">
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">New <span class="bg-green-500 text-white text-xs px-1 rounded ml-1 animate-pulse">NEW</span></a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Olahraga</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Brands</a>
+            <a href="product-catalog.html" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Kategori</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Sale</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-gray-800 rounded-md">Login | Register</a>
+        </div>
+    </header>
+
+    <section class="hero-slider">
+        <div class="slide active" style="background-color: #e9f5e9;">
+            <div class="container mx-auto h-full flex items-center px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-8 md:py-0">
+                    <div class="p-4 md:p-8 text-center md:text-left">
+                        <div class="text-sm font-medium text-purple-600 mb-2 animate-fade-in-down">PUMA</div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-purple-800 mb-4 animate-fade-in-left">MB.04</h2>
+                        <p class="text-gray-700 mb-6 animate-fade-in-right">Sepatu basket signature LaMelo Ball dengan desain futuristik dan teknologi terkini untuk performa maksimal di lapangan.</p>
+                        <a href="#" class="bg-purple-800 text-white px-6 py-2 rounded-full hover:bg-purple-900 inline-block transition-colors duration-200 animate-zoom-in">Beli Sekarang</a>
+                    </div>
+                    <div class="flex justify-center animate-fade-in-up">
+                        <img src="https://via.placeholder.com/500x300?text=PUMA+MB.04" alt="PUMA MB.04" class="max-h-64 md:max-h-80 w-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" style="background-color: #f9e0f4;">
+            <div class="container mx-auto h-full flex items-center px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-8 md:py-0">
+                    <div class="p-4 md:p-8 text-center md:text-left">
+                        <div class="text-sm font-medium text-pink-600 mb-2">NIKE</div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-pink-800 mb-4">GIANNIS IMMORTALITY</h2>
+                        <p class="text-gray-700 mb-6">Sepatu signature Giannis Antetokounmpo dengan desain yang terinspirasi dari kekuatan dan kelincahan sang MVP.</p>
+                        <a href="#" class="bg-pink-800 text-white px-6 py-2 rounded-full hover:bg-pink-900 inline-block transition-colors duration-200">Beli Sekarang</a>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://via.placeholder.com/500x300?text=NIKE+GIANNIS" alt="NIKE GIANNIS IMMORTALITY" class="max-h-64 md:max-h-80 w-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide" style="background-color: #e0f2f9;">
+            <div class="container mx-auto h-full flex items-center px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-8 md:py-0">
+                    <div class="p-4 md:p-8 text-center md:text-left">
+                        <div class="text-sm font-medium text-blue-600 mb-2">NIKE</div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4">G.T. HUSTLE ACADEMY</h2>
+                        <p class="text-gray-700 mb-6">Sepatu basket dengan teknologi terbaru untuk pemain yang mengandalkan kecepatan dan kelincahan dalam permainannya.</p>
+                        <a href="#" class="bg-blue-800 text-white px-6 py-2 rounded-full hover:bg-blue-900 inline-block transition-colors duration-200">Beli Sekarang</a>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="https://via.placeholder.com/500x300?text=NIKE+GT+HUSTLE" alt="NIKE G.T. HUSTLE ACADEMY" class="max-h-64 md:max-h-80 w-auto object-contain">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-dots">
+            <div class="dot active" data-slide="0"></div>
+            <div class="dot" data-slide="1"></div>
+            <div class="dot" data-slide="2"></div>
+        </div>
+        
+        <div class="slider-arrows">
+            <div class="arrow prev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="arrow next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="relative overflow-hidden rounded-lg shadow-lg">
+                <img src="https://www.vpcart.com/images/blog/Mike/Clearance-Sales.jpg" alt="Clearance Sale" class="w-full object-cover h-48 md:h-72 lg:h-96">
+                <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+                    <div class="text-center p-4">
+                        <h2 class="text-4xl md:text-6xl font-bold text-white mb-2 md:mb-4 drop-shadow-lg animate-fade-in-down">CLEARANCE SALE</h2>
+                        <p class="text-lg md:text-xl text-white mb-4 md:mb-6 drop-shadow-md animate-fade-in-up">10 - 15 MEI 2025</p>
+                        <a href="#" class="bg-red-600 text-white px-6 md:px-8 py-2 md:py-3 rounded-full hover:bg-red-700 font-bold transition-colors duration-200 animate-zoom-in">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6">Produk Terbaru</h2>
+            
+            <div class="slider-container relative">
+                <div class="product-slide flex space-x-4 md:space-x-6 overflow-x-auto pb-4 scrollbar-hide">
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/1011B875.751-1.jpg" alt="Running Shoe 1" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=1" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ASICS</div>
+                            <h3 class="font-medium mb-1">Magic Speed 4</h3>
+                            <div class="text-gray-700 text-sm mb-2">Huddle Yellow</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(24)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 2.499.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/1011B974.001-1.jpg" alt="Running Shoe 2" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=2" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ASICS</div>
+                            <h3 class="font-medium mb-1">Novablast 5 Standard</h3>
+                            <div class="text-gray-700 text-sm mb-2">Black White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(36)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 2.059.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/1011B975.402-1.jpg" alt="Running Shoe 3" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">SALE</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=3" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ASICS</div>
+                            <h3 class="font-medium mb-1">Novablast 5 Men Standard</h3>
+                            <div class="text-gray-700 text-sm mb-2">Indigo Blue</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(18)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 font-bold">Rp 1.889.000</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">Rp 2.059.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/1011B975.403-1.jpg" alt="Running Shoe 4" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">SALE</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=4" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ASICS</div>
+                            <h3 class="font-medium mb-1">Novablast 5 Standard</h3>
+                            <div class="text-gray-700 text-sm mb-2">Illusion Blue</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(29)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 font-bold">Rp 1.889.000</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">Rp 2.059.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/DX4996-100-1.jpg" alt="Basketball Shoe" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=5" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">NIKE</div>
+                            <h3 class="font-medium mb-1">Nike Zoom Freak 5</h3>
+                            <div class="text-gray-700 text-sm mb-2">Black/Metallic Gold</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(42)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 2.199.000</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="slider-arrow-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -ml-3 hover:bg-gray-100 transition-all duration-200">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -mr-3 hover:bg-gray-100 transition-all duration-200">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold flex items-center mb-4 sm:mb-0">
+                    <span class="text-red-600 flash-sale-text mr-2">FLASH SALE</span>
+                    <span class="text-sm bg-black text-white px-2 py-1 rounded">Berakhir dalam: <span id="flash-sale-countdown">00:00:00</span></span>
+                </h2>
+                <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Lihat Semua</a>
+            </div>
+            
+            <div class="slider-container relative">
+                <div class="product-slide flex space-x-4 md:space-x-6 overflow-x-auto pb-4 scrollbar-hide" id="flash-sale-products">
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/DH4072-006-1.jpg" alt="Sale Item 1" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-30%</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=6" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">NIKE</div>
+                            <h3 class="font-medium mb-1">Nike Air Zoom Pegasus 39</h3>
+                            <div class="text-gray-700 text-sm mb-2">Black/White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(56)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 font-bold">Rp 1.399.000</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">Rp 1.999.000</span>
+                            </div>
+                            <div class="mt-2 bg-gray-200 rounded-full h-2">
+                                <div class="bg-red-600 h-2 rounded-full w-3/4 animate-progress-fill" style="width: 75%;"></div>
+                            </div>
+                            <div class="text-sm text-gray-500 mt-1">Terjual: 75%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/B37686-1.jpg" alt="Sale Item 2" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-25%</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=7" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ADIDAS</div>
+                            <h3 class="font-medium mb-1">Adidas Ultraboost 23</h3>
+                            <div class="text-gray-700 text-sm mb-2">Cloud White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(42)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">Rp 2.174.000</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">Rp 2.899.000</span>
+                        </div>
+                        <div class="mt-2 bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-600 h-2 rounded-full w-1/2 animate-progress-fill" style="width: 50%;"></div>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">Terjual: 50%</div>
+                    </div>
+                </div>
+                
+                <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="relative">
+                        <img src="https://img.ncrsport.com/img/storage/large/37701214-1.jpg" alt="Sale Item 3" class="w-full h-48 sm:h-64 object-cover">
+                        <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-40%</div>
+                        <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html?id=8" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-gray-500 text-sm">PUMA</div>
+                        <h3 class="font-medium mb-1">Puma Velocity Nitro 2</h3>
+                        <div class="text-gray-700 text-sm mb-2">Black/Red</div>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(38)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">Rp 1.079.000</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">Rp 1.799.000</span>
+                        </div>
+                        <div class="mt-2 bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-600 h-2 rounded-full w-4/5 animate-progress-fill" style="width: 80%;"></div>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">Terjual: 80%</div>
+                    </div>
+                </div>
+                
+                <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="relative">
+                        <img src="https://img.ncrsport.com/img/storage/large/M1080LUM-1.jpg" alt="Sale Item 4" class="w-full h-48 sm:h-64 object-cover">
+                        <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-20%</div>
+                        <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html?id=9" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="p-4">
+                        <div class="text-gray-500 text-sm">PUMA</div>
+                        <h3 class="font-medium mb-1">Puma Velocity Nitro 2</h3>
+                        <div class="text-gray-700 text-sm mb-2">Black/Red</div>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(38)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">Rp 1.079.000</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">Rp 1.799.000</span>
+                        </div>
+                        <div class="mt-2 bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-600 h-2 rounded-full w-4/5 animate-progress-fill" style="width: 80%;"></div>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">Terjual: 80%</div>
+                    </div>
+                </div>
+                
+                <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="relative">
+                        <img src="https://img.ncrsport.com/img/storage/large/M1080LUM-1.jpg" alt="Sale Item 4" class="w-full h-48 sm:h-64 object-cover">
+                        <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">-20%</div>
+                        <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <a href="product-detail.html?id=9" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-gray-500 text-sm">NEW BALANCE</div>
+                        <h3 class="font-medium mb-1">New Balance Fresh Foam X 1080v12</h3>
+                        <div class="text-gray-700 text-sm mb-2">Gray/Yellow</div>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400 text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(29)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-red-600 font-bold">Rp 1.759.000</span>
+                            <span class="text-gray-500 line-through text-sm ml-2">Rp 2.199.000</span>
+                        </div>
+                        <div class="mt-2 bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-600 h-2 rounded-full w-1/4 animate-progress-fill" style="width: 25%;"></div>
+                        </div>
+                        <div class="text-sm text-gray-500 mt-1">Terjual: 25%</div>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-arrow-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -ml-3 hover:bg-gray-100 transition-all duration-200" data-target="flash-sale-products">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-arrow-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -mr-3 hover:bg-gray-100 transition-all duration-200" data-target="flash-sale-products">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+      <section class="py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6">Kategori Olahraga</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Category 1 -->
+                <div class="category-card relative rounded-lg overflow-hidden shadow-md h-64">
+                    <img src="https://www.ncrsport.com/img/sportbanner/Basket.png" alt="Basketball" class="w-full h-full object-cover">
+                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 transition-opacity"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <h3 class="text-3xl font-bold text-white mb-4"></h3>
+                            <a href="#" class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 inline-block">Lihat Produk</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category 2 -->
+                <div class="category-card relative rounded-lg overflow-hidden shadow-md h-64">
+                    <img src="https://www.ncrsport.com/img/sportbanner/Running.png" alt="Running" class="w-full h-full object-cover">
+                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 transition-opacity"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <h3 class="text-3xl font-bold text-white mb-4"></h3>
+                            <a href="#" class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 inline-block">Lihat Produk</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Category 3 -->
+                <div class="category-card relative rounded-lg overflow-hidden shadow-md h-64">
+                    <img src="https://www.ncrsport.com/img/sportbanner/Futsal.png" alt="Futsal" class="w-full h-full object-cover">
+                    <div class="category-overlay absolute inset-0 bg-black bg-opacity-40 transition-opacity"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <h3 class="text-3xl font-bold text-white mb-4"></h3>
+                            <a href="#" class="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 inline-block">Lihat Produk</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">New Arrivals</h2>
+                <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Lihat Semua</a>
+            </div>
+            
+            <div class="slider-container relative">
+                <div class="product-slide flex space-x-4 md:space-x-6 overflow-x-auto pb-4 scrollbar-hide" id="new-arrivals-products">
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/HY0675-1.jpg" alt="New Arrival 1" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=10" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">ADIDAS</div>
+                            <h3 class="font-medium mb-1">Topi Trail Adidas Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">TRX Cap Grph - White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(12)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 450.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/CX-B410110-001-1.jpg" alt="New Arrival 2" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=11" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">RECHAMP</div>
+                            <h3 class="font-medium mb-1">Tas Basket Rechamp Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">Shoe Bag (10 Liter) - Black</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(8)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 159.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/DV9360-010-1.jpg" alt="New Arrival 3" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=12" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">NIKE</div>
+                            <h3 class="font-medium mb-1">Celana Lari Nike Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">AS NK DF Challenger Sh - Thunder Blue</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(16)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 479.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/BV5690-010-3.jpg" alt="New Arrival 4" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=13" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                           <div class="p-4">
+                            <div class="text-gray-500 text-sm">NIKE</div>
+                            <h3 class="font-medium mb-1">Celana Lari Nike Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">AS NK DF Challenger Sh - Thunder Blue</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(16)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 479.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/BV5690-010-3.jpg" alt="New Arrival 4" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=13" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">NIKE</div>
+                            <h3 class="font-medium mb-1">Celana Lari Nike Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">AS NK DF Fast BF Half Tight - Black</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(9)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 495.000</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -ml-3 hover:bg-gray-100 transition-all duration-200" data-target="new-arrivals-products">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -mr-3 hover:bg-gray-100 transition-all duration-200" data-target="new-arrivals-products">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Sport Watches</h2>
+                <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Lihat Semua</a>
+            </div>
+            
+            <div class="slider-container relative">
+                <div class="product-slide flex space-x-4 md:space-x-6 overflow-x-auto pb-4 scrollbar-hide" id="sport-watches-products">
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://down-id.img.susercontent.com/file/id-11134207-7r98r-lmmkabosceqz51.webp" alt="Watch 1" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=14" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">COROS</div>
+                            <h3 class="font-medium mb-1">Jam Tangan Coros Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">Pace 3 Gps Sport Watch Nylon - White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(22)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 4.350.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://gshock.casio.com/content/casio/locales/id/id/brands/gshock/products/g-squad/gsw-h1000/_jcr_content/root/responsivegrid/container_copy/container/image.casiocoreimg.png/1631772995357/lineup-01.png" alt="Watch 2" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">SALE</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=15" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                         <div class="p-4">
+                            <div class="text-gray-500 text-sm">COROS</div>
+                            <h3 class="font-medium mb-1">Jam Tangan Coros Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">Pace 3 Gps Sport Watch Nylon - White</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(22)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 4.350.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://gshock.casio.com/content/casio/locales/id/id/brands/gshock/products/g-squad/gsw-h1000/_jcr_content/root/responsivegrid/container_copy/container/image.casiocoreimg.png/1631772995357/lineup-01.png" alt="Watch 2" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">SALE</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=15" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">CASIO</div>
+                            <h3 class="font-medium mb-1">Jam Tangan Casio Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">G-Shock G-Squad Smartwatch - Black</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(34)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 font-bold">Rp 2.089.050</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">Rp 2.829.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/gx-56bb-idr-1.jpg" alt="Watch 3" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">SALE</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=16" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">CASIO</div>
+                            <h3 class="font-medium mb-1">Jam Tangan Casio Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">G-Shock Solar Powered 200m Darknight - Black</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(28)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 font-bold">Rp 1.614.050</span>
+                                <span class="text-gray-500 line-through text-sm ml-2">Rp 2.649.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card flex-none w-56 sm:w-64 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <div class="relative">
+                            <img src="https://img.ncrsport.com/img/storage/large/WPACEP-OSAKA-1.jpg" alt="Watch 4" class="w-full h-48 sm:h-64 object-cover">
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">NEW</div>
+                            <div class="product-actions absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center space-x-2">
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <a href="product-detail.html?id=17" class="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 transform hover:scale-110">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm">COROS</div>
+                            <h3 class="font-medium mb-1">Jam Tangan Coros Original</h3>
+                            <div class="text-gray-700 text-sm mb-2">Pace Pro - Suguru Osako (Limited Edition) - Black</div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400 text-sm">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-500 text-xs ml-1">(15)</span>
+                            </div>
+                            <div class="text-red-600 font-bold">Rp 6.700.000</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -ml-3 hover:bg-gray-100 transition-all duration-200" data-target="sport-watches-products">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -mr-3 hover:bg-gray-100 transition-all duration-200" data-target="sport-watches-products">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Latest News</h2>
+                <a href="article-archive.html" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Lihat Semua</a>
+            </div>
+            
+            <div class="slider-container relative">
+                <div class="news-slide flex space-x-4 md:space-x-6 overflow-x-auto pb-4 scrollbar-hide" id="latest-news-articles">
+                    <div class="flex-none w-72 sm:w-80 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <img src="https://news.ncrsport.com/wp-content/uploads/2025/05/image-9.png" alt="News 1" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm mb-2">12 Mei 2025</div>
+                            <h3 class="font-bold text-lg mb-2">Breanna Stewart Siap Tempur Malam Hari Lewat Puma Stewie 4 "Night Vision"</h3>
+                            <p class="text-gray-700 text-sm mb-4">Puma dan Breanna Stewart meluncurkan colorway terbaru dari signature shoe Stewie 4 yang terinspirasi dari permainan malam hari.</p>
+                            <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-none w-72 sm:w-80 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <img src="https://news.ncrsport.com/wp-content/uploads/2025/05/image-7.png" alt="News 2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm mb-2">10 Mei 2025</div>
+                            <h3 class="font-bold text-lg mb-2">Lamelo Ball Dan Puma Siapkan MB.04 Lo "Ice White" Buat Hype Di Musim Panas</h3>
+                            <p class="text-gray-700 text-sm mb-4">Puma dan LaMelo Ball berkolaborasi untuk menghadirkan versi low-top dari signature shoe MB.04 dengan colorway "Ice White" yang cocok untuk musim panas.</p>
+                            <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-none w-72 sm:w-80 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <img src="https://news.ncrsport.com/wp-content/uploads/2025/05/image-7.png" alt="News 2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm mb-2">10 Mei 2025</div>
+                            <h3 class="font-bold text-lg mb-2">Lamelo Ball Dan Puma Siapkan MB.04 Lo "Ice White" Buat Hype Di Musim Panas</h3>
+                            <p class="text-gray-700 text-sm mb-4">Puma dan LaMelo Ball berkolaborasi untuk menghadirkan versi low-top dari signature shoe MB.04 dengan colorway "Ice White" yang cocok untuk musim panas.</p>
+                            <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+
+                    <div class="flex-none w-72 sm:w-80 bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">
+                        <img src="https://news.ncrsport.com/wp-content/uploads/2025/05/image-5.png" alt="News 3" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <div class="text-gray-500 text-sm mb-2">8 Mei 2025</div>
+                            <h3 class="font-bold text-lg mb-2">Lamelo Ball Bawa Energi Jalanan Ke MB.04 "Graffiti" Yang Rilis Juni 2025</h3>
+                            <p class="text-gray-700 text-sm mb-4">Terinspirasi dari seni jalanan dan budaya urban, LaMelo Ball dan Puma akan merilis MB.04 dengan desain graffiti yang unik pada Juni mendatang.</p>
+                            <a href="#" class="text-red-600 hover:text-red-800 font-medium transition-colors duration-200">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="slider-arrow-btn prev-btn absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -ml-3 hover:bg-gray-100 transition-all duration-200" data-target="latest-news-articles">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-arrow-btn next-btn absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md z-10 -mr-3 hover:bg-gray-100 transition-all duration-200" data-target="latest-news-articles">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-8">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-6">Our Brands</h2>
+            
+            <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://thumbs.dreamstime.com/b/nike-inc-american-multinational-corporation-engaged-design-development-manufacturing-worldwide-marketing-139136474.jpg" alt="NIKE" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Li-Ning_logo_black.svg" alt="LI-NING" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Adidas_logo.png" alt="ADIDAS" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://id.puma.com/on/demandware.static/Sites-ID-Site/-/default/dwf90b9f8d/images/mail/logo-puma-black.png" alt="PUMA" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://images.seeklogo.com/logo-png/49/2/asics-logo-png_seeklogo-499804.png" alt="ASICS" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://images.seeklogo.com/logo-png/9/1/new-balance-logo-png_seeklogo-98723.png" alt="NEW BALANCE" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Under_armour_logo.svg" alt="UNDER ARMOUR" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Converse_logo.svg/2560px-Converse_logo.svg.png" alt="CONVERSE" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Reebok_2019_logo.svg" alt="REEBOK" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://images-cdn.ubuy.co.id/634d13d4f1498f292e54ced6-23-air-jordan-jumpman-logo-huge-wall.jpg" alt="JORDAN" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://www.footlocker.id/media/wysiwyg/megamenu/Hoka.jpg" alt="HOKA" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://images.seeklogo.com/logo-png/2/1/brooks-logo-png_seeklogo-22792.png" alt="BROOKS" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuXCr8zb9A1jVWWjef9m7s6LpYauklno_kGS2xtxmWzxDI3kbKVDsV_-mkw07cJ5I3QL8&usqp=CAU" alt="SAUCONY" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzLMLRjwAbW-KoKL_xI2012-D0RBfOBLZz0g&s" alt="SPECS" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://images.seeklogo.com/logo-png/25/2/vans-logo-png_seeklogo-257446.png" alt="VANS" class="max-h-12 w-auto object-contain">
+                </a>
+                <a href="#" class="brand-logo flex items-center justify-center h-20 bg-white rounded-lg shadow-sm p-4 transition-transform duration-300 hover:scale-105">
+                    <img src="https://kingofdribble.co.id/cdn/shop/collections/ORTUSEIGHT_123bff2a-c019-4f61-ac11-d0582b36f319.jpg?v=1706952348" alt="ORTUSEIGHT" class="max-h-12 w-auto object-contain">
+                </a>
+            </div>
+            
+            <div class="text-center mt-6">
+                <a href="#" class="inline-block border border-gray-300 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                    View All Brands
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4 animate-fade-in-down">Subscribe to Our Newsletter</h2>
+                <p class="text-gray-300 mb-6 animate-fade-in-up">Dapatkan update terbaru tentang produk, promo, dan berita olahraga langsung ke email Anda.</p>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" placeholder="Email address" class="flex-grow px-4 py-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-200">
+                    <button class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium transition-colors duration-200 transform hover:scale-105">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black text-white pt-12 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold text-orange-500 mb-4">
+                        <a href="index.html" class="flex items-center">
+                            <span class="text-orange-500">SPORT</span><span class="text-white">GEAR</span>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 mb-4 text-sm">Toko perlengkapan olahraga terlengkap dengan produk original dan bergaransi resmi.</p>
+                    <div class="flex space-x-4 text-lg">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200 transform hover:scale-125"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">BANTUAN</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Cara Belanja</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pembayaran</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pengiriman</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Pengembalian</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Syarat dan Ketentuan</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">KATEGORI</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Basketball</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Running</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Football</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Training</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Lifestyle</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">Badminton</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg mb-4">HUBUNGI KAMI</h3>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+                            <span>Jl. Sportgear No. 123, Jakarta Selatan, DKI Jakarta, Indonesia</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone-alt mt-1 mr-3"></i>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope mt-1 mr-3"></i>
+                            <span>info@sportgear.id</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock mt-1 mr-3"></i>
+                            <span>Senin - Jumat: 09.00 - 21.00<br>Sabtu - Minggu: 10.00 - 22.00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 my-8">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <div class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 SportGear. All Rights Reserved.
+                </div>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="Mastercard" class="h-6 sm:h-8">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" class="h-6 sm:h-8">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/RuPay.svg/1200px-RuPay.svg.png" alt="RuPay" class="h-6 sm:h-8">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png" alt="PayPal" class="h-6 sm:h-8">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hero Slider
+            const slides = document.querySelectorAll('.hero-slider .slide');
+            const dots = document.querySelectorAll('.hero-slider .dot');
+            const prevArrow = document.querySelector('.hero-slider .prev');
+            const nextArrow = document.querySelector('.hero-slider .next');
+            let currentSlide = 0;
+            let slideInterval;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                let next = currentSlide + 1;
+                if (next >= slides.length) {
+                    next = 0;
+                }
+                showSlide(next);
+            }
+
+            function prevSlide() {
+                let prev = currentSlide - 1;
+                if (prev < 0) {
+                    prev = slides.length - 1;
+                }
+                showSlide(prev);
+            }
+
+            function startSlideshow() {
+                slideInterval = setInterval(nextSlide, 5000); 
+            }
+
+            function stopSlideshow() {
+                clearInterval(slideInterval);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    stopSlideshow();
+                    startSlideshow();
+                });
+            });
+
+            if (prevArrow) {
+                prevArrow.addEventListener('click', () => {
+                    prevSlide();
+                    stopSlideshow();
+                    startSlideshow();
+                });
+            }
+
+            if (nextArrow) {
+                nextArrow.addEventListener('click', () => {
+                    nextSlide();
+                    stopSlideshow();
+                    startSlideshow();
+                });
+            }
+
+            startSlideshow();
+
+            const heroSlider = document.querySelector('.hero-slider');
+            if (heroSlider) {
+                heroSlider.addEventListener('mouseenter', stopSlideshow);
+                heroSlider.addEventListener('mouseleave', startSlideshow);
+            }
+
+            // Universal Product/Category/News Slider Functionality
+            function setupSlider(containerId, itemSelector, scrollMultiplier = 3) {
+                const container = document.getElementById(containerId);
+                if (!container) return; // Exit if container not found
+
+                const prevButton = container.parentNode.querySelector('.prev-btn[data-target="' + containerId + '"]');
+                const nextButton = container.parentNode.querySelector('.next-btn[data-target="' + containerId + '"]');
+
+                if (prevButton) {
+                    prevButton.addEventListener('click', () => {
+                        const itemWidth = container.querySelector(itemSelector)?.offsetWidth || 0;
+                        const scrollAmount = itemWidth > 0 ? itemWidth * scrollMultiplier : container.offsetWidth * 0.8; // Fallback
+                        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    });
+                }
+                if (nextButton) {
+                    nextButton.addEventListener('click', () => {
+                        const itemWidth = container.querySelector(itemSelector)?.offsetWidth || 0;
+                        const scrollAmount = itemWidth > 0 ? itemWidth * scrollMultiplier : container.offsetWidth * 0.8; // Fallback
+                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    });
+                }
+            }
+
+            // Initialize sliders for each section
+            setupSlider('flash-sale-products', '.product-card');
+            setupSlider('sports-categories', '.category-card');
+            setupSlider('new-arrivals-products', '.product-card');
+            setupSlider('sport-watches-products', '.product-card');
+            setupSlider('latest-news-articles', '.flex-none'); // News cards have 'flex-none'
+
+            // Flash Sale Countdown
+            function startFlashSaleCountdown() {
+                const countdownElement = document.getElementById('flash-sale-countdown');
+                // Set the end date for the flash sale (e.g., 27 Juni 2025 00:00:00 WIB)
+                const endDate = new Date('June 27, 2025 00:00:00 GMT+0700').getTime(); // WIB is GMT+7
+
+                const updateCountdown = setInterval(() => {
+                    const now = new Date().getTime();
+                    const distance = endDate - now;
+
+                    if (distance < 0) {
+                        clearInterval(updateCountdown);
+                        countdownElement.innerHTML = "SALE ENDED";
+                        return;
+                    }
+
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownElement.innerHTML = 
+                        (hours < 10 ? '0' : '') + hours + ':' + 
+                        (minutes < 10 ? '0' : '') + minutes + ':' + 
+                        (seconds < 10 ? '0' : '') + seconds;
+                }, 1000);
+            }
+            startFlashSaleCountdown();
+
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
